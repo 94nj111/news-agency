@@ -1,0 +1,35 @@
+{% extends "base/template.html" %}
+{% load crispy_forms_filters %}
+{% block title %}News{% endblock title %}
+{% block my_content %}
+	{% if redactor_list %}
+		<ul class="list-group">
+			{% for redactor in redactor_list %}
+				<li class="list-group-item">
+						{% if redactor.photo %}
+              <div style="display: flex; justify-content: center;">
+                <img class="redactor-img" src="{{ redactor.photo.url }}" alt="">
+              </div>
+						{% endif %}
+            <div>
+						  <h5 style="float: left;">{{ redactor.first_name }} {{ redactor.last_name }}</h5>
+            </div>
+            <div>
+              <p>{{ redactor.username }}</p>
+            </div>
+          {% if request.user.is_authenticated %}
+            {% if request.user.is_superuser or request.user == redactor %}
+              <a href="{% url "accounts:redactor-update" redactor.id %}" class="btn btn-primary">Update</a>
+              <a href="#" class="btn btn-secondary">Delete</a>
+            {% endif %}
+          {% endif %}
+				</li>
+      
+			{% endfor %}
+  {% else %}
+      <li>
+        <p>No Redactors here!</p>
+      </li>
+		</ul>
+	{% endif %}
+{% endblock my_content %}
