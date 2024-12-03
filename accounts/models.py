@@ -11,9 +11,8 @@ class Redactor(AbstractUser):
         null=True,
         blank=True,
         force_format="WEBP",
-        quality=75
+        quality=75,
     )
-    
+
     def get_absolute_url(self):
         return reverse("accounts:redactor-detail", kwargs={"pk": self.pk})
-    

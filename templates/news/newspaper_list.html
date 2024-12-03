@@ -1,36 +1,38 @@
-{% extends "base/template.html" %}
+{% extends 'base/template.html' %}
 {% load crispy_forms_filters %}
-{% block title %}News{% endblock title %}
+{% block title %}
+  News
+{% endblock %}
 {% block my_content %}
-	<div style="display: flex; justify-content: space-between;">
-		<form class="form-inline col-sm-1 d-flex" method="get" action="">
-			{{ search_form|crispy }}
-			<input class="btn btn-secondary" type="submit" value="🔎">
-		</form>
+  <div style="display: flex; justify-content: space-between;">
+    <form class="form-inline col-sm-1 d-flex" method="get" action="">
+      {{ search_form|crispy }}
+      <input class="btn btn-secondary" type="submit" value="🔎" />
+    </form>
 
-		{% if request.user.is_authenticated %}
-			<a href="{% url "news:newspaper-create" %}" class="btn btn-primary">Add</a>
-		{% endif %}
-	</div>
-	{% if newspaper_list %}
-		<ul class="list-group" id="newspapers">
-			{% for newspaper in newspaper_list %}
-				<li class="list-group-item">
-					<a href="{% url "news:newspaper-detail" newspaper.pk %}">
-						{% if newspaper.photo %}
-						<div>
-							<img class="newspaper-img" src="{{ newspaper.photo.url }}" alt="">
-						</div>
-						{% endif %}
-						<h3 style="float: left;">{{ newspaper.title }}</h3>
-						<br>
-						<br>
-						<p>{{ newspaper.content|slice:":700" }}...</p>
-					</a>
-				</li>
-			{% endfor %}
-		</ul>
-	{% else %}
-		<p>No newspapers here!</p>
-	{% endif %}
-{% endblock my_content %}
+    {% if request.user.is_authenticated %}
+      <a href="{% url 'news:newspaper-create' %}" class="btn btn-primary">Add</a>
+    {% endif %}
+  </div>
+  {% if newspaper_list %}
+    <ul class="list-group" id="newspapers">
+      {% for newspaper in newspaper_list %}
+        <li class="list-group-item">
+          <a href="{% url 'news:newspaper-detail' newspaper.pk %}">
+            {% if newspaper.photo %}
+              <div>
+                <img class="newspaper-img" src="{{ newspaper.photo.url }}" alt="" />
+              </div>
+            {% endif %}
+            <h3 style="float: left;">{{ newspaper.title }}</h3>
+            <br />
+            <br />
+            <p>{{ newspaper.content|slice:':700' }}...</p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No newspapers here!</p>
+  {% endif %}
+{% endblock %}

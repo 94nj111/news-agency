@@ -54,7 +54,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "topics",
-                    models.ManyToManyField(related_name="newspapers", to="news.topic"),
+                    models.ManyToManyField(
+                        related_name="newspapers", to="news.topic"
+                    ),
                 ),
             ],
         ),

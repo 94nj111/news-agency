@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "django_dropbox_storage",
     "crispy_forms",
     "crispy_bootstrap5",
@@ -86,14 +85,14 @@ STORAGES = {
     "default": {
         "BACKEND": "storages.backends.dropbox.DropboxStorage",
         "OPTIONS": {
-            'oauth2_access_token': os.getenv("DROPBOX_ACCESS_TOKEN"),
-            'oauth2_refresh_token': os.getenv("DROPBOX_REFRESH_TOKEN"),
-            'app_secret': os.getenv("DROPBOX_APP_SECRET_KEY"),
-            'app_key': os.getenv("DROPBOX_APP_KEY"),
+            "oauth2_access_token": os.getenv("DROPBOX_ACCESS_TOKEN"),
+            "oauth2_refresh_token": os.getenv("DROPBOX_REFRESH_TOKEN"),
+            "app_secret": os.getenv("DROPBOX_APP_SECRET_KEY"),
+            "app_key": os.getenv("DROPBOX_APP_KEY"),
         },
     },
     "staticfiles": {
-        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
 

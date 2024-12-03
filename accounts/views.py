@@ -10,10 +10,10 @@ from accounts.forms import RedactorCreationForm
 
 class RedactorListView(generic.ListView):
     model = Redactor
-    
-    
+
+
 class RedactorRegisterView(generic.View):
-    
+
     def post(self, request):
         form = RedactorCreationForm(request.POST or None)
 
@@ -26,7 +26,7 @@ class RedactorRegisterView(generic.View):
                 return redirect("news:index")
 
         return render(request, "registration/register.html", {"form": form})
-    
+
     def get(self, request):
         form = RedactorCreationForm()
         return render(request, "registration/register.html", {"form": form})
