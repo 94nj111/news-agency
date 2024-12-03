@@ -12,10 +12,24 @@ class RedactorListView(generic.ListView):
     model = Redactor
     
     
-class RedactorRegisterView(generic.CreateView):
-    model = Redactor
-    form_class = RedactorCreationForm
-    template_name = "registration/register.html"
+class RedactorRegisterView(generic.View):
+    
+    def post(self, request):
+        form = RedactorCreationForm(request.POST or None)
+
+        if request.method == "POST":
+            if form.is_valid():
+                user = form.save()
+                user.save()
+                login(request, user)
+
+                return redirect("news:index")
+
+        return render(request, "registration/register.html", {"form": form})
+    
+    def get(self, request):
+        form = RedactorCreationForm()
+        return render(request, "registration/register.html", {"form": form})
 
 
 class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -27,3 +41,4 @@ class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
         "years_of_expirience",
         "photo",
     )
+    success_url = reverse_lazy("accounts:redactor-list")

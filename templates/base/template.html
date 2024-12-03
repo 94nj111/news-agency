@@ -28,10 +28,14 @@
     <div class="container">
       <div class="section text-center">
         {% block my_content %}{% endblock my_content %}
+        <div style="display: flex; justify-content: center;">
+          {% block pagination %}
+            {% include "includes/pagination.html" %}
+          {% endblock pagination %}
+        </div>
       </div>
     </div>
   </div>
-
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->

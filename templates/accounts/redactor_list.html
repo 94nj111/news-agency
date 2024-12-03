@@ -7,20 +7,15 @@
 			{% for redactor in redactor_list %}
 				<li class="list-group-item">
 						{% if redactor.photo %}
-              <div style="display: flex; justify-content: center;">
+              <div>
                 <img class="redactor-img" src="{{ redactor.photo.url }}" alt="">
               </div>
 						{% endif %}
-            <div>
-						  <h5 style="float: left;">{{ redactor.first_name }} {{ redactor.last_name }}</h5>
-            </div>
-            <div>
-              <p>{{ redactor.username }}</p>
-            </div>
+						  <h6>{{ redactor.first_name }} {{ redactor.last_name }}</h6>
+              <h6>{{ redactor.username }}</h6>
           {% if request.user.is_authenticated %}
             {% if request.user.is_superuser or request.user == redactor %}
               <a href="{% url "accounts:redactor-update" redactor.id %}" class="btn btn-primary">Update</a>
-              <a href="#" class="btn btn-secondary">Delete</a>
             {% endif %}
           {% endif %}
 				</li>

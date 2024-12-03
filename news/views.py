@@ -1,6 +1,7 @@
 from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 from news.models import Topic, Newspaper
 from news.forms import NewspaperSearchForm
@@ -9,6 +10,7 @@ from news.forms import NewspaperSearchForm
 class NewspaperListView(generic.ListView):
     model = Newspaper
     queryset = Newspaper.objects.prefetch_related("topics", "publishers").order_by("-published_date")
+    paginate_by = 2
     
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(NewspaperListView, self).get_context_data(**kwargs)

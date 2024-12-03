@@ -2,7 +2,7 @@
 {% block my_content %}
   {% if newspaper.photo %}
   <div>
-    <img src="{{ newspaper.photo.url }}" alt="">
+    <img class="newspaper-img" src="{{ newspaper.photo.url }}" alt="">
   </div>
   {% endif %}
 	<h2 style="float: left;">{{ newspaper.title }}</h2>

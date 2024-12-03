@@ -3,7 +3,7 @@ from django.urls import path
 from accounts.views import (
     RedactorListView,
     RedactorRegisterView,
-    RedactorUpdateView
+    RedactorUpdateView,
 )
 
 urlpatterns = [
