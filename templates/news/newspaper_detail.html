@@ -5,9 +5,18 @@
     <img class="newspaper-img" src="{{ newspaper.photo.url }}" alt="">
   </div>
   {% endif %}
-	<h2 style="float: left;">{{ newspaper.title }}</h2>
+	<h3 style="float: left;">{{ newspaper.title }}</h3>
+  <div style="float: left; margin: 10px 20px;">
+    {% if newspaper.topics.all %}
+      {% for topic in newspaper.topics.all %}
+        {{ topic }}
+      {% endfor %}
+      {{ newspaper.published_date }}
+    {% else %}
+      {{ newspaper.published_date }}
+    {% endif %}
+  </div>
 	<br>
-  <br>
   <br>
 	<p>{{ newspaper.content }}</p>
 	{% if request.user.is_authenticated %}

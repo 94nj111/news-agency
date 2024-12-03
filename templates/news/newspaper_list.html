@@ -25,6 +25,16 @@
               </div>
             {% endif %}
             <h3 style="float: left;">{{ newspaper.title }}</h3>
+            <div style="float: left; margin: 10px 20px;">
+              {% if newspaper.topics.all %}
+                {% for topic in newspaper.topics.all %}
+                  {{ topic }}
+                {% endfor %}
+                {{ newspaper.published_date }}
+              {% else %}
+                {{ newspaper.published_date }}
+              {% endif %}
+            </div>
             <br />
             <br />
             <p>{{ newspaper.content|slice:':700' }}...</p>
