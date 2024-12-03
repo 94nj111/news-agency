@@ -19,6 +19,13 @@
 	<br>
   <br>
 	<p>{{ newspaper.content }}</p>
+  <p>
+    {% if newspaper.publishers.all %}
+      {% for publisher in newspaper.publishers.all %}
+        {{ publisher.first_name }} {{ publisher.last_name }}
+      {% endfor %}
+    {% endif %}
+  </p>
 	{% if request.user.is_authenticated %}
     {% if request.user.is_superuser or request.user in newspaper.publishers.all %}
       <a href="{% url "news:newspaper-update" newspaper.id %}" class="btn btn-primary">Update</a>
@@ -26,4 +33,3 @@
     {% endif %}
 	{% endif %}
 {% endblock my_content %}
-

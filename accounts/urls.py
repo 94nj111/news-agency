@@ -1,10 +1,7 @@
 from django.urls import path
 
-from accounts.views import (
-    RedactorListView,
-    RedactorRegisterView,
-    RedactorUpdateView,
-)
+from accounts.views import (RedactorListView, RedactorRegisterView,
+                            RedactorUpdateView)
 
 urlpatterns = [
     path("", RedactorListView.as_view(), name="redactor-list"),

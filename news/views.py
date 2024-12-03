@@ -1,10 +1,9 @@
-from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.views import generic
 
-from news.models import Topic, Newspaper
 from news.forms import NewspaperSearchForm
+from news.models import Newspaper, Topic
 
 
 class NewspaperListView(generic.ListView):
@@ -67,13 +66,18 @@ class TopicListView(generic.ListView):
     model = Topic
 
 
+class TopicCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Topic
+    fields = ("name",)
+    success_url = reverse_lazy("news:topic-list")
+
+
 class TopicUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Topic
-    fields = ["name"]
-    success_url = reverse_lazy("news:topics")
+    fields = ("name",)
+    success_url = reverse_lazy("news:topic-list")
 
 
 class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Topic
-    fields = ["name"]
-    success_url = reverse_lazy("news:topics")
+    success_url = reverse_lazy("news:topic-list")

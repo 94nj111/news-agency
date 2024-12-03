@@ -1,11 +1,11 @@
-from django.views import generic
-from django.urls import reverse_lazy
-from django.shortcuts import redirect, render
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.views import generic
 
-from accounts.models import Redactor
 from accounts.forms import RedactorCreationForm
+from accounts.models import Redactor
 
 
 class RedactorListView(generic.ListView):
