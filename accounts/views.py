@@ -10,6 +10,7 @@ from accounts.models import Redactor
 
 class RedactorListView(generic.ListView):
     model = Redactor
+    paginate_by = 10
 
 
 class RedactorRegisterView(generic.View):

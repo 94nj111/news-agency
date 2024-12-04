@@ -11,7 +11,7 @@ class NewspaperListView(generic.ListView):
     queryset = Newspaper.objects.prefetch_related(
         "topics", "publishers"
     ).order_by("-published_date")
-    paginate_by = 5
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(NewspaperListView, self).get_context_data(**kwargs)
@@ -64,6 +64,7 @@ class NewspaperDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class TopicListView(generic.ListView):
     model = Topic
+    paginate_by = 10
 
 
 class TopicCreateView(LoginRequiredMixin, generic.CreateView):

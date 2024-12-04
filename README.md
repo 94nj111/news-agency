@@ -39,18 +39,10 @@ Follow these steps to set up a virtual environment (venv) and activate it:
    pip install -r requirements.txt
    ```
 
-## Installing Dependencies
-
-Once the virtual environment is activated, you can install all necessary dependencies by running:
-
-```bash
-pip install -r requirements.txt
-```
-
-This will install the following:
-- Django
-- Django Resized (for image resizing)
-- Other dependencies defined in the `requirements.txt`
+4. **Install migrations**
+   ```bash
+   python manage.py migrate
+   ```
 
 ## Dropbox
 Follow the link there you will find instructions on how to get the data specified in the .env.template after you get it create the .env file and fill it in according to the provided sample
