@@ -1,3 +1,12 @@
+# Live
+
+https://mate-dmytros-news-agency.onrender.com/
+```
+test_user
+
+zxcv1234!!
+```
+
 
 # Django Project Setup
 
