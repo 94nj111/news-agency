@@ -20,9 +20,11 @@ class NewspaperListView(generic.ListView):
         publishers = self.request.GET.get("publishers", "")
         title = self.request.GET.get("title", "")
         context["search_form"] = NewspaperSearchForm(
-            initial={"topics": topics,
-                     "publishers": publishers,
-                     "title": title}
+            initial={
+                "topics": topics,
+                "publishers": publishers,
+                "title": title,
+            }
         )
         return context
 

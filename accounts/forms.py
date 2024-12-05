@@ -8,8 +8,8 @@ class RedactorCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Redactor
         fields = UserCreationForm.Meta.fields
-        
-        
+
+
 class RedactorSearchForm(forms.Form):
     username = forms.CharField(
         max_length=255,

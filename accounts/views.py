@@ -8,8 +8,8 @@ from django.http import HttpResponseRedirect
 from accounts.forms import RedactorCreationForm, RedactorSearchForm
 from accounts.models import Redactor
 from accounts.mixins import AdminRequiredMixin
-    
-    
+
+
 class RedactorListView(generic.ListView):
     model = Redactor
     paginate_by = 10
@@ -18,7 +18,9 @@ class RedactorListView(generic.ListView):
         context = super(RedactorListView, self).get_context_data(**kwargs)
         username = self.request.GET.get("username", "")
         context["search_form"] = RedactorSearchForm(
-            initial={"username": username,}
+            initial={
+                "username": username,
+            }
         )
         return context
 
@@ -29,11 +31,11 @@ class RedactorListView(generic.ListView):
             queryset = queryset.filter(username__icontains=username)
         return queryset
 
-    
+
 class RedactorDetailView(generic.DetailView):
     model = Redactor
-    
-    
+
+
 class RedactorDeleteView(AdminRequiredMixin, generic.DeleteView):
     model = Redactor
     success_url = reverse_lazy("accounts:redactor-list")
@@ -69,10 +71,10 @@ class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
         "photo",
     )
     success_url = reverse_lazy("accounts:redactor-list")
-    
-    
+
+
 class RedactorToggleView(AdminRequiredMixin, generic.View):
-    
+
     def get(self, request, pk):
         redactor = Redactor.objects.get(id=pk)
         if redactor.is_redactor:
@@ -80,4 +82,6 @@ class RedactorToggleView(AdminRequiredMixin, generic.View):
         else:
             redactor.is_redactor = True
         redactor.save()
-        return HttpResponseRedirect(reverse_lazy("accounts:redactor-detail", args = [pk]))
+        return HttpResponseRedirect(
+            reverse_lazy("accounts:redactor-detail", args=[pk])
+        )
