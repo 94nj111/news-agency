@@ -5,6 +5,7 @@ from django_resized import ResizedImageField
 
 
 class Redactor(AbstractUser):
+    is_redactor = models.BooleanField(default=False)
     years_of_expirience = models.PositiveIntegerField(blank=True, null=True)
     photo = ResizedImageField(
         upload_to="images/",

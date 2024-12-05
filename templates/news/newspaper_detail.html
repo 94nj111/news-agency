@@ -27,7 +27,7 @@
     {% endif %}
   </p>
 	{% if request.user.is_authenticated %}
-    {% if request.user.is_superuser or request.user in newspaper.publishers.all %}
+    {% if request.user.is_superuser or request.user.is_redactor %}
       <a href="{% url "news:newspaper-update" newspaper.id %}" class="btn btn-primary">Update</a>
       <a href="{% url "news:newspaper-delete" newspaper.id %}" class="btn btn-secondary">Delete</a>
     {% endif %}

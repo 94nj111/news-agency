@@ -1,9 +1,10 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 
-from news.forms import NewspaperSearchForm
+from news.forms import NewspaperSearchForm, NewspaperForm
 from news.models import Newspaper, Topic
+from accounts.mixins import RedactorRequiredMixin
 
 
 class NewspaperListView(generic.ListView):
@@ -16,16 +17,26 @@ class NewspaperListView(generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(NewspaperListView, self).get_context_data(**kwargs)
         topics = self.request.GET.get("topics", "")
+        publishers = self.request.GET.get("publishers", "")
+        title = self.request.GET.get("title", "")
         context["search_form"] = NewspaperSearchForm(
-            initial={"topics": topics}
+            initial={"topics": topics,
+                     "publishers": publishers,
+                     "title": title}
         )
         return context
 
     def get_queryset(self):
-        queryset = Newspaper.objects.prefetch_related("topics")
+        queryset = Newspaper.objects.prefetch_related("topics", "publishers")
         topics = self.request.GET.get("topics")
+        publishers = self.request.GET.get("publishers")
+        title = self.request.GET.get("title", "")
         if topics:
-            return queryset.filter(topics__in=topics)
+            queryset = queryset.filter(topics__in=topics)
+        if publishers:
+            queryset = queryset.filter(publishers__in=publishers)
+        if title:
+            queryset = queryset.filter(title__icontains=title)
         return queryset
 
 
@@ -33,27 +44,15 @@ class NewspaperDetailView(generic.DetailView):
     model = Newspaper
 
 
-class NewspaperCreateView(LoginRequiredMixin, generic.CreateView):
+class NewspaperCreateView(RedactorRequiredMixin, generic.CreateView):
     model = Newspaper
-    fields = (
-        "title",
-        "content",
-        "topics",
-        "publishers",
-        "photo",
-    )
+    form_class = NewspaperForm
     success_url = reverse_lazy("news:index")
 
 
 class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Newspaper
-    fields = (
-        "title",
-        "content",
-        "topics",
-        "publishers",
-        "photo",
-    )
+    form_class = NewspaperForm
     success_url = reverse_lazy("news:index")
 
 
@@ -67,18 +66,18 @@ class TopicListView(generic.ListView):
     paginate_by = 10
 
 
-class TopicCreateView(LoginRequiredMixin, generic.CreateView):
+class TopicCreateView(RedactorRequiredMixin, generic.CreateView):
     model = Topic
     fields = ("name",)
     success_url = reverse_lazy("news:topic-list")
 
 
-class TopicUpdateView(LoginRequiredMixin, generic.UpdateView):
+class TopicUpdateView(RedactorRequiredMixin, generic.UpdateView):
     model = Topic
     fields = ("name",)
     success_url = reverse_lazy("news:topic-list")
 
 
-class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
+class TopicDeleteView(RedactorRequiredMixin, generic.DeleteView):
     model = Topic
     success_url = reverse_lazy("news:topic-list")
