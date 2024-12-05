@@ -15,7 +15,7 @@
     {% if request.user.is_superuser and not redactor.is_redactor %}
       <a href="{% url 'accounts:redactor-toggle' pk=redactor.id %}" class="btn btn-secondary">Give access</a>
     {% endif %}
-    {% if request.user.is_superuser or request.user == redactor %}
+    {% if request.user.is_superuser or request.user.id == redactor.id %}
       <a href="{% url 'accounts:redactor-update' redactor.id %}" class="btn btn-primary">Update</a>
     {% endif %}
     {% if request.user.is_superuser %}

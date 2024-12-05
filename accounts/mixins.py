@@ -33,6 +33,6 @@ class RedactorPermissionMixin(LoginRequiredMixin):
 class UserPermissionMixin(LoginRequiredMixin):
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_superuser and (kwargs["pk"],) == request.user.id:
+        if not (request.user.is_superuser or (kwargs["pk"]) == request.user.id):
             return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)
