@@ -2,9 +2,9 @@
 
 https://mate-dmytros-news-agency.onrender.com/
 ```
-test_user
+admin
 
-zxcv1234!!
+1
 ```
 
 

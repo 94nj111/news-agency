@@ -8,11 +8,6 @@ from django.http import HttpResponseRedirect
 from accounts.forms import RedactorCreationForm, RedactorSearchForm
 from accounts.models import Redactor
 from accounts.mixins import AdminRequiredMixin
-
-
-# class RedactorListView(generic.ListView):
-#     model = Redactor
-#     paginate_by = 10
     
     
 class RedactorListView(generic.ListView):
