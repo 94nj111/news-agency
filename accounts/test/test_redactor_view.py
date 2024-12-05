@@ -43,9 +43,7 @@ class RedactorViewsTest(TestCase):
     def test_redactor_update_view_get(self):
         self.client.login(username="testuser", password="testpassword")
         response = self.client.get(
-            reverse(
-                "accounts:redactor-update", kwargs={"pk": self.redactor.pk}
-            )
+            reverse("accounts:redactor-update", kwargs={"pk": self.redactor.pk})
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "accounts/redactor_form.html")
@@ -60,9 +58,7 @@ class RedactorViewsTest(TestCase):
             "years_of_expirience": 10,
         }
         response = self.client.post(
-            reverse(
-                "accounts:redactor-update", kwargs={"pk": self.redactor.pk}
-            ),
+            reverse("accounts:redactor-update", kwargs={"pk": self.redactor.pk}),
             data,
         )
         self.assertEqual(response.status_code, 302)

@@ -82,6 +82,4 @@ class RedactorToggleView(AdminRequiredMixin, generic.View):
         else:
             redactor.is_redactor = True
         redactor.save()
-        return HttpResponseRedirect(
-            reverse_lazy("accounts:redactor-detail", args=[pk])
-        )
+        return HttpResponseRedirect(reverse_lazy("accounts:redactor-detail", args=[pk]))
