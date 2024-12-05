@@ -38,4 +38,6 @@ class NewspaperForm(forms.ModelForm):
             "title",
             "content",
             "photo",
+            "publishers",
+            "topics",
         )

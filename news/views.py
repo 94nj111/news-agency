@@ -4,7 +4,7 @@ from django.views import generic
 
 from news.forms import NewspaperSearchForm, NewspaperForm
 from news.models import Newspaper, Topic
-from accounts.mixins import RedactorRequiredMixin
+from accounts.mixins import RedactorRequiredMixin, RedactorPermissionMixin
 
 
 class NewspaperListView(generic.ListView):
@@ -52,13 +52,13 @@ class NewspaperCreateView(RedactorRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("news:index")
 
 
-class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
+class NewspaperUpdateView(RedactorPermissionMixin, generic.UpdateView):
     model = Newspaper
     form_class = NewspaperForm
     success_url = reverse_lazy("news:index")
 
 
-class NewspaperDeleteView(LoginRequiredMixin, generic.DeleteView):
+class NewspaperDeleteView(RedactorPermissionMixin, generic.DeleteView):
     model = Newspaper
     success_url = reverse_lazy("news:index")
 
