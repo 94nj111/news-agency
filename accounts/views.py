@@ -36,6 +36,7 @@ class RedactorDetailView(generic.DetailView):
     
 class RedactorDeleteView(AdminRequiredMixin, generic.DeleteView):
     model = Redactor
+    success_url = reverse_lazy("accounts:redactor-list")
 
 
 class RedactorRegisterView(generic.View):
