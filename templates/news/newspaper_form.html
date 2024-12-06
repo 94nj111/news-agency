@@ -1,0 +1,12 @@
+{% extends 'base/template.html' %}
+{% load crispy_forms_filters %}
+
+{% block my_content %}
+  <h1>{{ object|yesno:'Update,Create' }} Newspaper</h1>
+    <form class="col-sm-12" action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-primary" type="submit" value="{{ object|yesno:'Update,Create' }}" />
+    </form>
+  </div>
+{% endblock %}
