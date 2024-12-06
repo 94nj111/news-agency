@@ -1,7 +1,7 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import AccessMixin
 
 
-class RedactorRequiredMixin(LoginRequiredMixin):
+class RedactorRequiredMixin(AccessMixin):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_redactor:
@@ -9,7 +9,7 @@ class RedactorRequiredMixin(LoginRequiredMixin):
         return super().dispatch(request, *args, **kwargs)
 
 
-class AdminRequiredMixin(LoginRequiredMixin):
+class AdminRequiredMixin(AccessMixin):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_superuser:
@@ -17,7 +17,7 @@ class AdminRequiredMixin(LoginRequiredMixin):
         return super().dispatch(request, *args, **kwargs)
 
 
-class RedactorPermissionMixin(LoginRequiredMixin):
+class RedactorPermissionMixin(AccessMixin):
 
     def dispatch(self, request, *args, **kwargs):
         newspapers_ids = request.user.newspapers.values_list(
@@ -30,7 +30,7 @@ class RedactorPermissionMixin(LoginRequiredMixin):
         return super().dispatch(request, *args, **kwargs)
 
 
-class UserPermissionMixin(LoginRequiredMixin):
+class UserPermissionMixin(AccessMixin):
 
     def dispatch(self, request, *args, **kwargs):
         if not (request.user.is_superuser or (kwargs["pk"]) == request.user.id):

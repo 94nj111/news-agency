@@ -36,7 +36,7 @@ class RedactorDetailView(generic.DetailView):
     model = Redactor
 
 
-class RedactorDeleteView(AdminRequiredMixin, generic.DeleteView):
+class RedactorDeleteView(LoginRequiredMixin, AdminRequiredMixin, generic.DeleteView):
     model = Redactor
     success_url = reverse_lazy("accounts:redactor-list")
 
@@ -61,7 +61,7 @@ class RedactorRegisterView(generic.View):
         return render(request, "registration/register.html", {"form": form})
 
 
-class RedactorUpdateView(UserPermissionMixin, generic.UpdateView):
+class RedactorUpdateView(LoginRequiredMixin, UserPermissionMixin, generic.UpdateView):
     model = Redactor
     fields = (
         "email",
@@ -73,7 +73,7 @@ class RedactorUpdateView(UserPermissionMixin, generic.UpdateView):
     success_url = reverse_lazy("accounts:redactor-list")
 
 
-class RedactorToggleView(AdminRequiredMixin, generic.View):
+class RedactorToggleView(LoginRequiredMixin, AdminRequiredMixin, generic.View):
 
     def get(self, request, pk):
         redactor = Redactor.objects.get(id=pk)

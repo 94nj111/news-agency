@@ -46,19 +46,19 @@ class NewspaperDetailView(generic.DetailView):
     model = Newspaper
 
 
-class NewspaperCreateView(RedactorRequiredMixin, generic.CreateView):
+class NewspaperCreateView(LoginRequiredMixin, RedactorRequiredMixin, generic.CreateView):
     model = Newspaper
     form_class = NewspaperForm
     success_url = reverse_lazy("news:index")
 
 
-class NewspaperUpdateView(RedactorPermissionMixin, generic.UpdateView):
+class NewspaperUpdateView(LoginRequiredMixin, RedactorPermissionMixin, generic.UpdateView):
     model = Newspaper
     form_class = NewspaperForm
     success_url = reverse_lazy("news:index")
 
 
-class NewspaperDeleteView(RedactorPermissionMixin, generic.DeleteView):
+class NewspaperDeleteView(LoginRequiredMixin, RedactorPermissionMixin, generic.DeleteView):
     model = Newspaper
     success_url = reverse_lazy("news:index")
 
@@ -68,18 +68,18 @@ class TopicListView(generic.ListView):
     paginate_by = 10
 
 
-class TopicCreateView(RedactorRequiredMixin, generic.CreateView):
+class TopicCreateView(LoginRequiredMixin, RedactorRequiredMixin, generic.CreateView):
     model = Topic
     fields = ("name",)
     success_url = reverse_lazy("news:topic-list")
 
 
-class TopicUpdateView(RedactorRequiredMixin, generic.UpdateView):
+class TopicUpdateView(LoginRequiredMixin, RedactorRequiredMixin, generic.UpdateView):
     model = Topic
     fields = ("name",)
     success_url = reverse_lazy("news:topic-list")
 
 
-class TopicDeleteView(RedactorRequiredMixin, generic.DeleteView):
+class TopicDeleteView(LoginRequiredMixin, RedactorRequiredMixin, generic.DeleteView):
     model = Topic
     success_url = reverse_lazy("news:topic-list")
