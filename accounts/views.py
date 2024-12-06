@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 
 from accounts.forms import RedactorCreationForm, RedactorSearchForm
 from accounts.models import Redactor
-from accounts.mixins import AdminRequiredMixin, UserPermissionMixin
+from accounts.permissions import AdminRequiredMixin, UserPermissionMixin
 
 
 class RedactorListView(generic.ListView):

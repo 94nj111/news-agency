@@ -4,7 +4,7 @@ from django.views import generic
 
 from news.forms import NewspaperSearchForm, NewspaperForm
 from news.models import Newspaper, Topic
-from accounts.mixins import RedactorRequiredMixin, RedactorPermissionMixin
+from accounts.permissions import RedactorRequiredMixin, RedactorPermissionMixin
 
 
 class NewspaperListView(generic.ListView):
