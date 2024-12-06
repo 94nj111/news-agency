@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import AccessMixin
 class RedactorRequiredMixin(AccessMixin):
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_redactor:
+        if not request.user.has_access:
             return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)
 
@@ -24,7 +24,7 @@ class RedactorPermissionMixin(AccessMixin):
             "id",
         )
         if not request.user.is_superuser and not (
-            (kwargs["pk"],) in newspapers_ids and request.user.is_redactor
+            (kwargs["pk"],) in newspapers_ids and request.user.has_access
         ):
             return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)

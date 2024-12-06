@@ -77,9 +77,9 @@ class RedactorToggleView(LoginRequiredMixin, AdminRequiredMixin, generic.View):
 
     def get(self, request, pk):
         redactor = Redactor.objects.get(id=pk)
-        if redactor.is_redactor:
-            redactor.is_redactor = False
+        if redactor.has_access:
+            redactor.has_access = False
         else:
-            redactor.is_redactor = True
+            redactor.has_access = True
         redactor.save()
         return HttpResponseRedirect(reverse_lazy("accounts:redactor-detail", args=[pk]))

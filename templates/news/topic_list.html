@@ -13,7 +13,7 @@
       {% for topic in topic_list %}
         <li class="list-group-item">
           <a href="/?topics={{ topic.id }}"><h2>{{ topic.name }}</h2></a>
-          {% if request.user.is_authenticated and request.user.is_redactor %}
+          {% if request.user.is_authenticated and request.user.has_access %}
             <a href="{% url 'news:topic-update' topic.id %}" class="btn btn-primary">Update</a>
             <a href="{% url 'news:topic-delete' topic.id %}" class="btn btn-secondary">Delete</a>
           {% endif %}

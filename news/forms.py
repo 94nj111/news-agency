@@ -13,7 +13,7 @@ class NewspaperSearchForm(forms.Form):
     publishers = forms.ModelChoiceField(
         required=False,
         label="",
-        queryset=get_user_model().objects.filter(is_redactor=True),
+        queryset=get_user_model().objects.filter(has_access=True),
     )
     title = forms.CharField(
         max_length=255,

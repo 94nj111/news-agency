@@ -9,10 +9,10 @@
     <h6>Years Of Expirience: {{ redactor.years_of_expirience }}</h6>
   {% endif %}
   {% if request.user.is_authenticated %}
-    {% if request.user.is_superuser and redactor.is_redactor %}
+    {% if request.user.is_superuser and redactor.has_access %}
       <a href="{% url 'accounts:redactor-toggle' pk=redactor.id %}" class="btn btn-secondary">Remove access</a>
     {% endif %}
-    {% if request.user.is_superuser and not redactor.is_redactor %}
+    {% if request.user.is_superuser and not redactor.has_access %}
       <a href="{% url 'accounts:redactor-toggle' pk=redactor.id %}" class="btn btn-secondary">Give access</a>
     {% endif %}
     {% if request.user.is_superuser or request.user.id == redactor.id %}
