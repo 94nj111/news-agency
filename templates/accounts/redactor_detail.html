@@ -1,0 +1,25 @@
+{% extends 'base/template.html' %}
+{% block my_content %}
+  {% if redactor.photo %}
+    <img class="redactor-img" src="{{ redactor.photo.url }}" alt="" />
+  {% endif %}
+  <h6>{{ redactor.username }}</h6>
+  <h6>{{ redactor.first_name }} {{ redactor.last_name }}</h6>
+  {% if redactor.years_of_expirience %}
+    <h6>Years Of Expirience: {{ redactor.years_of_expirience }}</h6>
+  {% endif %}
+  {% if request.user.is_authenticated %}
+    {% if request.user.is_superuser and redactor.has_access %}
+      <a href="{% url 'accounts:redactor-toggle' pk=redactor.id %}" class="btn btn-secondary">Remove access</a>
+    {% endif %}
+    {% if request.user.is_superuser and not redactor.has_access %}
+      <a href="{% url 'accounts:redactor-toggle' pk=redactor.id %}" class="btn btn-secondary">Give access</a>
+    {% endif %}
+    {% if request.user.is_superuser or request.user.id == redactor.id %}
+      <a href="{% url 'accounts:redactor-update' redactor.id %}" class="btn btn-primary">Update</a>
+    {% endif %}
+    {% if request.user.is_superuser %}
+      <a href="{% url 'accounts:redactor-delete' pk=redactor.id %}" class="btn btn-danger">Delete</a>
+    {% endif %}
+  {% endif %}
+{% endblock %}

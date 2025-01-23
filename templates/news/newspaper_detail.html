@@ -1,0 +1,40 @@
+{% extends 'base/template.html' %}
+{% block my_content %}
+  {% if newspaper.photo %}
+    <div>
+      <img class="newspaper-img" src="{{ newspaper.photo.url }}" alt="" />
+    </div>
+  {% endif %}
+  <h3 style="float: left;">{{ newspaper.title }}</h3>
+  <div style="float: left; margin: 10px 20px;">
+    {% if newspaper.topics.all %}
+      {% for topic in newspaper.topics.all %}
+        {{ topic }}
+      {% endfor %}
+      {{ newspaper.published_date }}
+    {% else %}
+      {{ newspaper.published_date }}
+    {% endif %}
+  </div>
+  <br />
+  <br />
+  <p>{{ newspaper.content }}</p>
+  <p>
+    {% if newspaper.publishers.all %}
+      {% for publisher in newspaper.publishers.all %}
+        {{ publisher.first_name }} {{ publisher.last_name }}
+      {% endfor %}
+    {% endif %}
+  </p>
+  {% if request.user.is_authenticated %}
+    {% if request.user.is_superuser %}
+      <a href="{% url 'news:newspaper-update' newspaper.id %}" class="btn btn-primary">Update</a>
+      <a href="{% url 'news:newspaper-delete' newspaper.id %}" class="btn btn-secondary">Delete</a>
+    {% else %}
+      {% if request.user in newspaper.publishers.all %}
+        <a href="{% url 'news:newspaper-update' newspaper.id %}" class="btn btn-primary">Update</a>
+        <a href="{% url 'news:newspaper-delete' newspaper.id %}" class="btn btn-secondary">Delete</a>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endblock %}

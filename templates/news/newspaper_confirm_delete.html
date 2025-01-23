@@ -1,0 +1,13 @@
+{% extends 'base/template.html' %}
+{% block title %}
+  News
+{% endblock %}
+{% block my_content %}
+  <h1>Delete Newspaper?</h1>
+  <h3>{{ newspaper.title }}</h3>
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    <a href="{% url 'news:index' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}
